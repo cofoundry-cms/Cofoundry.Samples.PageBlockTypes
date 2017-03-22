@@ -1,0 +1,16 @@
+﻿@inherits CofoundryPageModule<DirectoryListDisplayModel>
+
+@*
+    Here we can use the Cofoundry helper to set the description that
+    gets displayed against the module in the administration interface.
+
+    This is optional and doesn't render anything into the template itself.
+*@
+@Cofoundry.Module.UseDescription("A list of pages in a specific directory")
+
+<ul>
+    @foreach (var page in Model.Pages.Items)
+    {
+        <li><a href="@Cofoundry.Routing.Page(page)">@page.Title</a></li>
+    }
+</ul>
