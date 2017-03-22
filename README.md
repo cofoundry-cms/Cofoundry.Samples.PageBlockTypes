@@ -1,6 +1,6 @@
 # Cofoundry.Samples.PageModules
 
-A bare website showing various examples of page module types.
+A bare website showing various examples of how to implement page module types.
 
 If you have any requests for example module types, [let us know](https://github.com/cofoundry-cms/cofoundry/wiki/Feedback-&-Community).
 
