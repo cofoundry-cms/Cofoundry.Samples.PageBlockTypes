@@ -4,6 +4,8 @@ A bare website showing various examples of page module types.
 
 If you have any requests for example module types, [let us know](https://github.com/cofoundry-cms/cofoundry/wiki/Feedback-&-Community).
 
+**NB: This currently uses a pre-release version of Cofoundry. If you get a package missing error then add the Cofoundry PreRelease feed to your nuget feeds (https://www.myget.org/F/cofoundry/api/v3/index.json)**
+
 #### To get started:
 
 1. Create a database named 'Cofoundry.Samples.PageModules' and check the Cofoundry connection string in the web.config file is correct for you sql server instance
