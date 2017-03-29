@@ -8,9 +8,12 @@
 *@
 @Cofoundry.Module.UseDescription("An orderable list of links to pages")
 
+@if (!EnumerableHelper.IsNullOrEmpty(Model.Pages))
+{
 <ul>
     @foreach (var page in Model.Pages)
     {
         <li><a href="@Cofoundry.Routing.Page(page)">@page.Title</a></li>
     }
 </ul>
+}
