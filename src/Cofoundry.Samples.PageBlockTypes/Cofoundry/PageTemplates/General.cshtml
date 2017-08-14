@@ -1,0 +1,26 @@
+﻿@model PageViewModel
+@{
+    Layout = null;
+}
+
+@Cofoundry.Template.UseDescription("A bare template for testing page block types")
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h1>Page Block Type Test Area</h1>
+
+        @(await Cofoundry.Template.Region("Body")
+            .AllowMultipleBlocks()
+            .EmptyContentMinHeight(500)
+            .InvokeAsync())
+
+    </div>
+</body>
+</html>
