@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cofoundry.Domain;
-using AutoMapper;
 using System.Threading.Tasks;
 using Cofoundry.Core;
 using Microsoft.AspNetCore.Html;
@@ -11,7 +10,10 @@ namespace Cofoundry.Web
 {
     public class QuotationDisplayModelMapper : IPageBlockTypeDisplayModelMapper<QuotationDataModel>
     {
-        public Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(IEnumerable<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputs, WorkFlowStatusQuery workflowStatus)
+        public Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
+            IEnumerable<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputs, 
+            PublishStatusQuery publishStatusQuery
+            )
         {
             return Task.FromResult(Map(inputs));
         }

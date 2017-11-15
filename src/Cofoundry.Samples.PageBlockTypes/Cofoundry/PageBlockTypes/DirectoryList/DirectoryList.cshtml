@@ -5,9 +5,9 @@
 @if (Model.Pages.Items.Any())
 {
 <ul>
-    @foreach (var page in Model.Pages.Items)
+    @foreach (var pageItem in Model.Pages.Items)
     {
-        <li><a href="@Cofoundry.Routing.Page(page)">@page.Title</a></li>
+        <li><a href="@Cofoundry.Routing.Page(pageItem)">@pageItem.Title</a></li>
     }
 </ul>
 }

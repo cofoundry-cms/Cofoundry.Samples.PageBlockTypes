@@ -20,7 +20,7 @@ namespace Cofoundry.Samples.PageBlockTypes
 
         public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
             IEnumerable<PageBlockTypeDisplayModelMapperInput<PageListDataModel>> inputs,
-            WorkFlowStatusQuery workflowStatus
+            PublishStatusQuery publishStatusQuery
             )
         {
             var allPageIds = inputs
@@ -44,7 +44,7 @@ namespace Cofoundry.Samples.PageBlockTypes
 
                 output.Pages = allPageRoutes
                     .ToFilteredAndOrderedCollection(input.DataModel.PageIds)
-                    .Where(p => workflowStatus != WorkFlowStatusQuery.Published || p.IsPublished);
+                    .Where(p => publishStatusQuery != PublishStatusQuery.Published || p.IsPublished());
 
                 // The CreateOutput() method wraps the mapped display 
                 // model with it's identifier so we can identify later on

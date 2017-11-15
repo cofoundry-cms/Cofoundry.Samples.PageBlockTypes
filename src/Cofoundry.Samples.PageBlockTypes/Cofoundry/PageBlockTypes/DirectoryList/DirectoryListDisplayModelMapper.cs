@@ -19,7 +19,7 @@ namespace Cofoundry.Samples.PageBlockTypes
 
         public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
             IEnumerable<PageBlockTypeDisplayModelMapperInput<DirectoryListDataModel>> inputs,
-            WorkFlowStatusQuery workflowStatus
+            PublishStatusQuery publishStatusQuery
             )
         {
             var results = new List<PageBlockTypeDisplayModelMapperOutput>();
@@ -37,9 +37,9 @@ namespace Cofoundry.Samples.PageBlockTypes
                 // when viewing the live site.
                 // NB: The page search api is essentially borrowed from the admin panel
                 // and could be improved upon for this type of querying. See issue #87
-                if (workflowStatus == WorkFlowStatusQuery.Published)
+                if (publishStatusQuery == PublishStatusQuery.Published)
                 {
-                    query.WorkFlowStatus = WorkFlowStatus.Published;
+                    query.PublishStatus = PublishStatus.Published;
                 }
 
                 output.Pages = await _pageRepository.SearchPageSummariesAsync(query);
