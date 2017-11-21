@@ -8,7 +8,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Cofoundry.Web.Admin" Version="0.2.0-beta0064" />
+    <PackageReference Include="Cofoundry.Web.Admin" Version="0.2.0-beta0069" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.0" />
   </ItemGroup>
