@@ -21,6 +21,6 @@ namespace Cofoundry.Samples.PageBlockTypes
     {
         [Display(Name = "Pages", Description = "The pages to display, orderable by drag and drop.")]
         [PageCollection(IsOrderable = true)]
-        public int[] PageIds { get; set; }
+        public ICollection<int> PageIds { get; set; }
     }
 }

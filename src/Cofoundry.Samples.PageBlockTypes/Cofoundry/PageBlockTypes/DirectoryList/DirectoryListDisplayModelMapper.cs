@@ -18,13 +18,13 @@ namespace Cofoundry.Samples.PageBlockTypes
         }
 
         public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IEnumerable<PageBlockTypeDisplayModelMapperInput<DirectoryListDataModel>> inputs,
+            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<DirectoryListDataModel>> inputCollection,
             PublishStatusQuery publishStatusQuery
             )
         {
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>();
+            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
 
-            foreach (var input in inputs)
+            foreach (var input in inputCollection)
             {
                 var output = new DirectoryListDisplayModel();
 

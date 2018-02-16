@@ -11,16 +11,16 @@ namespace Cofoundry.Web
     public class QuotationDisplayModelMapper : IPageBlockTypeDisplayModelMapper<QuotationDataModel>
     {
         public Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IEnumerable<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputs, 
+            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputCollection, 
             PublishStatusQuery publishStatusQuery
             )
         {
-            return Task.FromResult(Map(inputs));
+            return Task.FromResult(Map(inputCollection));
         }
 
-        private IEnumerable<PageBlockTypeDisplayModelMapperOutput> Map(IEnumerable<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputs)
+        private IEnumerable<PageBlockTypeDisplayModelMapperOutput> Map(IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<QuotationDataModel>> inputCollection)
         {
-            foreach (var input in inputs)
+            foreach (var input in inputCollection)
             {
                 var output = new QuotationDisplayModel();
                 output.CitationText = input.DataModel.CitationText;

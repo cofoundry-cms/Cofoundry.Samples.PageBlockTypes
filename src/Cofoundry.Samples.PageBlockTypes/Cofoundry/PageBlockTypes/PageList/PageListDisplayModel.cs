@@ -7,6 +7,6 @@ namespace Cofoundry.Samples.PageBlockTypes
 {
     public class PageListDisplayModel : IPageBlockTypeDisplayModel
     {
-        public IEnumerable<PageRoute> Pages { get; set; }
+        public ICollection<PageRoute> Pages { get; set; }
     }
 }

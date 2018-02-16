@@ -11,11 +11,11 @@ namespace Cofoundry.Web
         private static string[] LINE_DELIMITERS = new string[] { "\r\n", "\n" };
 
         public Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IEnumerable<PageBlockTypeDisplayModelMapperInput<TextListDataModel>> inputs, 
+            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<TextListDataModel>> inputCollection, 
             PublishStatusQuery publishStatusQuery
             )
         {
-            return Task.FromResult(Map(inputs));
+            return Task.FromResult(Map(inputCollection));
         }
 
         private IEnumerable<PageBlockTypeDisplayModelMapperOutput> Map(IEnumerable<PageBlockTypeDisplayModelMapperInput<TextListDataModel>> inputs)

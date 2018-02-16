@@ -19,22 +19,19 @@ namespace Cofoundry.Samples.PageBlockTypes
         }
 
         public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IEnumerable<PageBlockTypeDisplayModelMapperInput<PageListDataModel>> inputs,
+            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<PageListDataModel>> inputCollection,
             PublishStatusQuery publishStatusQuery
             )
         {
-            var allPageIds = inputs
-                .SelectMany(d => d.DataModel.PageIds)
-                .Distinct()
-                .ToArray();
+            var allPageIds = inputCollection.SelectManyDistinctModelValues(m => m.PageIds);
 
             // Page routes are cached and so are the quickest way to get simple page information.
             // If we needed more data we could use a different but slower query to get it.
             var allPageRoutes = await _pageRepository.GetPageRoutesByIdRangeAsync(allPageIds);
 
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>(allPageIds.Length);
+            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
 
-            foreach (var input in inputs)
+            foreach (var input in inputCollection)
             {
                 var output = new PageListDisplayModel();
 
@@ -43,8 +40,9 @@ namespace Cofoundry.Samples.PageBlockTypes
                 // then we make sure we only show published pages in the list.
 
                 output.Pages = allPageRoutes
-                    .ToFilteredAndOrderedCollection(input.DataModel.PageIds)
-                    .Where(p => publishStatusQuery != PublishStatusQuery.Published || p.IsPublished());
+                    .FilterAndOrderByKeys(input.DataModel.PageIds)
+                    .Where(p => publishStatusQuery != PublishStatusQuery.Published || p.IsPublished())
+                    .ToList();
 
                 // The CreateOutput() method wraps the mapped display 
                 // model with it's identifier so we can identify later on

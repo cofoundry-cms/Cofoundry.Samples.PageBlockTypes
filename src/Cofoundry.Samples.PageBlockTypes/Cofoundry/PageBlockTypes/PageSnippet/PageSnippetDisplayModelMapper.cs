@@ -24,14 +24,11 @@ namespace Cofoundry.Samples.PageBlockTypes
         }
 
         public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IEnumerable<PageBlockTypeDisplayModelMapperInput<PageSnippetDataModel>> inputs, 
+            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<PageSnippetDataModel>> inputCollection, 
             PublishStatusQuery publishStatusQuery
             )
         {
-            var allPageIds = inputs
-                .Select(d => d.DataModel.PageId)
-                .Distinct()
-                .ToArray();
+            var allPageIds = inputCollection.SelectDistinctModelValuesWithoutEmpty(m => m.PageId);
 
             // The PageRenderDetails object contains page, template and block data targeting
             // a specific version. We pass through the WorkFlowStatusQuery to ensure this is 
@@ -39,9 +36,9 @@ namespace Cofoundry.Samples.PageBlockTypes
             // should also be able to see connected entities in draft status.
             var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, publishStatusQuery);
             var allPages = await _pageRepository.GetPageRenderDetailsByIdRangeAsync(pagesQuery);
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>(allPageIds.Length);
+            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
 
-            foreach (var input in inputs)
+            foreach (var input in inputCollection)
             {
                 var output = new PageSnippetDisplayModel();
 
