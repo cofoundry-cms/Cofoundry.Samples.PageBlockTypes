@@ -1,7 +1,5 @@
 # Cofoundry.Samples.PageBlockTypes
 
-***NB: The term 'Page Module' has been changed in Cofoundry 0.2 and is now 'Page Block Type'. This repository will be re-named accordingly when Cofoundry 0.2 is released.***
-
 A bare website showing various examples of how to implement page block types.
 
 If you have any requests for example block types, [let us know](https://github.com/cofoundry-cms/cofoundry/wiki/Feedback-&-Community).
