@@ -19,8 +19,7 @@ If you have any requests for example block types, [let us know](https://github.c
 - **PageSnippet:** Displays summary information about a page. Demonstrates the `PageAttribute` data model attribute, querying and manipulating block data and handling availability of linked entities (due to draft status).
 - **Quotation:** A quotation block that is output as blockquote with an optional cite tag.
 - **TextList:** A list of text items that displays in an html unordered list, or optional in an ordered list.
-- **VimeoVideo:** Embeds a vimeo video.
-- **YouTubeVideo:** Embeds a you tube video.
+- **Carousel:** A multi-item carousel making use of `NestedDataModelCollection` to allow editing of a collection slides.
 
 
 
