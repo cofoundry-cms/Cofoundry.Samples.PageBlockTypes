@@ -1,27 +1,13 @@
 ﻿@model IPageViewModel
 @inject ICofoundryTemplateHelper<IPageViewModel> Cofoundry
-@{
-    Layout = null;
-}
 
 @Cofoundry.Template.UseDescription("A bare template for testing page block types")
 
-<!DOCTYPE html>
+<h1 class="mt-3">@Model.PageTitle</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <h1>Page Block Type Test Area</h1>
-
-        @(await Cofoundry.Template.Region("Body")
-            .AllowMultipleBlocks()
-            .EmptyContentMinHeight(500)
-            .InvokeAsync())
-
-    </div>
-</body>
-</html>
+<div class="row mt-4 mb-5">
+    @(await Cofoundry.Template.Region("Body")
+                .AllowMultipleBlocks()
+                .EmptyContentMinHeight(500)
+                .InvokeAsync())
+</div>
