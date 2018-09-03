@@ -7,6 +7,6 @@ namespace Cofoundry.Samples.PageBlockTypes
 {
     public class DirectoryListDisplayModel : IPageBlockTypeDisplayModel
     {
-        public IPagedQueryResult<PageSummary> Pages { get; set; }
+        public IPagedQueryResult<PageRenderSummary> Pages { get; set; }
     }
 }

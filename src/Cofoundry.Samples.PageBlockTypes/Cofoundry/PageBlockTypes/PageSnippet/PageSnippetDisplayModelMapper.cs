@@ -31,7 +31,7 @@ namespace Cofoundry.Samples.PageBlockTypes
             var allPageIds = inputCollection.SelectDistinctModelValuesWithoutEmpty(m => m.PageId);
 
             // The PageRenderDetails object contains page, template and block data targeting
-            // a specific version. We pass through the WorkFlowStatusQuery to ensure this is 
+            // a specific version. We pass through the PublishStatusQuery to ensure this is 
             // respected when querying related data i.e. if we're viewing a draft version then we
             // should also be able to see connected entities in draft status.
             var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, publishStatusQuery);
