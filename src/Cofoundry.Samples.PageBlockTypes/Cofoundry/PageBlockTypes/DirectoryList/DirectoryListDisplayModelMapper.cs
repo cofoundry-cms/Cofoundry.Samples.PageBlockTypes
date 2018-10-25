@@ -16,34 +16,27 @@ namespace Cofoundry.Samples.PageBlockTypes
         {
             _pageRepository = pageRepository;
         }
-
-        public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<DirectoryListDataModel>> inputCollection,
-            PublishStatusQuery publishStatusQuery
+        
+        public async Task MapAsync(
+            PageBlockTypeDisplayModelMapperContext<DirectoryListDataModel> context, 
+            PageBlockTypeDisplayModelMapperResult<DirectoryListDataModel> result
             )
         {
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
-
-            foreach (var input in inputCollection)
+            foreach (var item in context.Items)
             {
-                var output = new DirectoryListDisplayModel();
-
                 var query = new SearchPageRenderSummariesQuery();
-                query.PageDirectoryId = input.DataModel.PageDirectoryId;
-                query.PageSize = input.DataModel.PageSize;
+                query.PageDirectoryId = item.DataModel.PageDirectoryId;
+                query.PageSize = item.DataModel.PageSize;
 
                 // Pass through the workflow status so that we only show published pages 
                 // when viewing the live site.
-                query.PublishStatus = publishStatusQuery;
+                query.PublishStatus = context.PublishStatusQuery;
 
-                output.Pages = await _pageRepository.SearchPageRenderSummariesAsync(query);
+                var displayModel = new DirectoryListDisplayModel();
+                displayModel.Pages = await _pageRepository.SearchPageRenderSummariesAsync(query, context.ExecutionContext);
 
-                // The CreateOutput() method wraps the mapped display 
-                // model with it's identifier so we can identify later on
-                results.Add(input.CreateOutput(output));
+                result.Add(item, displayModel);
             }
-
-            return results;
         }
     }
 }

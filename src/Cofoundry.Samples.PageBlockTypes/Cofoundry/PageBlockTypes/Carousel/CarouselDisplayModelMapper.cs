@@ -18,29 +18,29 @@ namespace Cofoundry.Samples.PageBlockTypes
             _imageAssetRepository = imageAssetRepository;
         }
 
-        public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-                IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<CarouselDataModel>> inputCollection, 
-                PublishStatusQuery publishStatusQuery
+        public async Task MapAsync(
+            PageBlockTypeDisplayModelMapperContext<CarouselDataModel> context,
+            PageBlockTypeDisplayModelMapperResult<CarouselDataModel> result
             )
         {
             // Find all the image ids to load
-            var allImageAssetIds = inputCollection
+            var allImageAssetIds = context
+                .Items
                 .SelectMany(m => m.DataModel.Slides)
                 .Select(m => m.ImageId)
                 .Where(i => i > 0)
                 .Distinct();
 
             // Load image data
-            var allImages = await _imageAssetRepository.GetImageAssetRenderDetailsByIdRangeAsync(allImageAssetIds);
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
+            var allImages = await _imageAssetRepository.GetImageAssetRenderDetailsByIdRangeAsync(allImageAssetIds, context.ExecutionContext);
 
             // Map display model
-            foreach (var input in inputCollection)
+            foreach (var items in context.Items)
             {
                 var output = new CarouselDisplayModel();
 
                 output.Slides = EnumerableHelper
-                    .Enumerate(input.DataModel.Slides)
+                    .Enumerate(items.DataModel.Slides)
                     .Select(m => new CarouselSlideDisplayModel()
                     {
                         Image = allImages.GetOrDefault(m.ImageId),
@@ -49,10 +49,8 @@ namespace Cofoundry.Samples.PageBlockTypes
                     })
                     .ToList();
 
-                results.Add(input.CreateOutput(output));
+                result.Add(items, output);
             }
-
-            return results;
         }
     }
 }

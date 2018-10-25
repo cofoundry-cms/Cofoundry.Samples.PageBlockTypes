@@ -10,25 +10,22 @@ namespace Cofoundry.Web
     {
         private static string[] LINE_DELIMITERS = new string[] { "\r\n", "\n" };
 
-        public Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<TextListDataModel>> inputCollection, 
-            PublishStatusQuery publishStatusQuery
+        public Task MapAsync(
+            PageBlockTypeDisplayModelMapperContext<TextListDataModel> context,
+            PageBlockTypeDisplayModelMapperResult<TextListDataModel> result
             )
         {
-            return Task.FromResult(Map(inputCollection));
-        }
-
-        private IEnumerable<PageBlockTypeDisplayModelMapperOutput> Map(IEnumerable<PageBlockTypeDisplayModelMapperInput<TextListDataModel>> inputs)
-        {
-            foreach (var input in inputs)
+            foreach (var item in context.Items)
             {
-                var output = new TextListDisplayModel();
-                output.TextListItems = input.DataModel.TextList.Split(LINE_DELIMITERS, StringSplitOptions.None);
-                output.Title = input.DataModel.Title;
-                output.IsNumbered = input.DataModel.IsNumbered;
+                var displayModel = new TextListDisplayModel();
+                displayModel.TextListItems = item.DataModel.TextList.Split(LINE_DELIMITERS, StringSplitOptions.None);
+                displayModel.Title = item.DataModel.Title;
+                displayModel.IsNumbered = item.DataModel.IsNumbered;
 
-                yield return input.CreateOutput(output);
+                result.Add(item, displayModel);
             }
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -23,35 +23,34 @@ namespace Cofoundry.Samples.PageBlockTypes
             _htmlSanitizer = htmlSanitizer;
         }
 
-        public async Task<IEnumerable<PageBlockTypeDisplayModelMapperOutput>> MapAsync(
-            IReadOnlyCollection<PageBlockTypeDisplayModelMapperInput<PageSnippetDataModel>> inputCollection, 
-            PublishStatusQuery publishStatusQuery
+        public async Task MapAsync(
+            PageBlockTypeDisplayModelMapperContext<PageSnippetDataModel> context,
+            PageBlockTypeDisplayModelMapperResult<PageSnippetDataModel> result
             )
         {
-            var allPageIds = inputCollection.SelectDistinctModelValuesWithoutEmpty(m => m.PageId);
+            var allPageIds = context.Items.SelectDistinctModelValuesWithoutEmpty(m => m.PageId);
 
             // The PageRenderDetails object contains page, template and block data targeting
             // a specific version. We pass through the PublishStatusQuery to ensure this is 
             // respected when querying related data i.e. if we're viewing a draft version then we
             // should also be able to see connected entities in draft status.
-            var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, publishStatusQuery);
-            var allPages = await _pageRepository.GetPageRenderDetailsByIdRangeAsync(pagesQuery);
-            var results = new List<PageBlockTypeDisplayModelMapperOutput>(inputCollection.Count);
+            var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, context.PublishStatusQuery);
+            var allPages = await _pageRepository.GetPageRenderDetailsByIdRangeAsync(pagesQuery, context.ExecutionContext);
 
-            foreach (var input in inputCollection)
+            foreach (var item in context.Items)
             {
-                var output = new PageSnippetDisplayModel();
+                var displayModel = new PageSnippetDisplayModel();
 
-                output.Page = allPages.GetOrDefault(input.DataModel.PageId);
+                displayModel.Page = allPages.GetOrDefault(item.DataModel.PageId);
 
                 // We have to code defensively here and bear in mind that the related
                 // entities may be in draft status and may not be available when viewing
                 // the live site.
-                if (output.Page != null)
+                if (displayModel.Page != null)
                 {
                     // An example of querying the block data. Here we find all the raw html 
                     // page blocks and select all the data and strip out the html tags
-                    var strippedHtml = output
+                    var strippedHtml = displayModel
                         .Page
                         .Regions
                         .SelectMany(s => s.Blocks)
@@ -62,15 +61,13 @@ namespace Cofoundry.Samples.PageBlockTypes
                     // This is just an example of working with the data, in reality this
                     // would be much more dependent on your content.
                     var combinedText = string.Join(Environment.NewLine, strippedHtml);
-                    output.Snippet = TextFormatter.LimitWithElipsesOnWordBoundary(combinedText, 300);
+                    displayModel.Snippet = TextFormatter.LimitWithElipsesOnWordBoundary(combinedText, 300);
                 }
 
                 // The CreateOutput() method wraps the mapped display 
                 // model with it's identifier so we can identify later on
-                results.Add(input.CreateOutput(output));
+                result.Add(item, displayModel);
             }
-
-            return results;
         }
     }
 }
