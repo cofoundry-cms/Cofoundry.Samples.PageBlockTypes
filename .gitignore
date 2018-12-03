@@ -88,3 +88,4 @@ appsettings.local.json
 .vscode
 
 **/App_Data/Files/
+**/App_Data/Emails/
