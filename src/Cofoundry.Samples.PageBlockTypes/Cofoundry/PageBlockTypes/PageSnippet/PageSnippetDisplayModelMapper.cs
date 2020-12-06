@@ -11,15 +11,15 @@ namespace Cofoundry.Samples.PageBlockTypes
 {
     public class PageSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<PageSnippetDataModel>
     {
-        private readonly IPageRepository _pageRepository;
+        private readonly IContentRepository _contentRepository;
         private readonly IHtmlSanitizer _htmlSanitizer;
 
         public PageSnippetDisplayModelMapper(
-            IPageRepository pageRepository,
+            IContentRepository contentRepository,
             IHtmlSanitizer htmlSanitizer
             )
         {
-            _pageRepository = pageRepository;
+            _contentRepository = contentRepository;
             _htmlSanitizer = htmlSanitizer;
         }
 
@@ -35,7 +35,12 @@ namespace Cofoundry.Samples.PageBlockTypes
             // respected when querying related data i.e. if we're viewing a draft version then we
             // should also be able to see connected entities in draft status.
             var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, context.PublishStatusQuery);
-            var allPages = await _pageRepository.GetPageRenderDetailsByIdRangeAsync(pagesQuery, context.ExecutionContext);
+            var allPages = await _contentRepository
+                .WithExecutionContext(context.ExecutionContext)
+                .Pages()
+                .GetByIdRange(allPageIds)
+                .AsRenderDetails()
+                .ExecuteAsync();
 
             foreach (var item in context.Items)
             {

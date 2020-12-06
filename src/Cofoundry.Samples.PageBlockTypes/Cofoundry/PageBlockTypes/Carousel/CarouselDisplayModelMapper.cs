@@ -9,13 +9,13 @@ namespace Cofoundry.Samples.PageBlockTypes
 {
     public class CarouselDisplayModelMapper : IPageBlockTypeDisplayModelMapper<CarouselDataModel>
     {
-        private readonly IImageAssetRepository _imageAssetRepository;
+        private readonly IContentRepository _contentRepository;
 
         public CarouselDisplayModelMapper(
-            IImageAssetRepository imageAssetRepository
+            IContentRepository contentRepository
             )
         {
-            _imageAssetRepository = imageAssetRepository;
+            _contentRepository = contentRepository;
         }
 
         public async Task MapAsync(
@@ -32,7 +32,12 @@ namespace Cofoundry.Samples.PageBlockTypes
                 .Distinct();
 
             // Load image data
-            var allImages = await _imageAssetRepository.GetImageAssetRenderDetailsByIdRangeAsync(allImageAssetIds, context.ExecutionContext);
+            var allImages = await _contentRepository
+                .WithExecutionContext(context.ExecutionContext)
+                .ImageAssets()
+                .GetByIdRange(allImageAssetIds)
+                .AsRenderDetails()
+                .ExecuteAsync();
 
             // Map display model
             foreach (var items in context.Items)

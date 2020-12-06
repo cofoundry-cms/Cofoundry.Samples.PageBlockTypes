@@ -8,13 +8,13 @@ namespace Cofoundry.Samples.PageBlockTypes
 {
     public class DirectoryListDisplayModelMapper : IPageBlockTypeDisplayModelMapper<DirectoryListDataModel>
     {
-        private readonly IPageRepository _pageRepository;
+        private readonly IContentRepository _contentRepository;
 
         public DirectoryListDisplayModelMapper(
-            IPageRepository pageRepository
+            IContentRepository contentRepository
             )
         {
-            _pageRepository = pageRepository;
+            _contentRepository = contentRepository;
         }
         
         public async Task MapAsync(
@@ -33,7 +33,12 @@ namespace Cofoundry.Samples.PageBlockTypes
                 query.PublishStatus = context.PublishStatusQuery;
 
                 var displayModel = new DirectoryListDisplayModel();
-                displayModel.Pages = await _pageRepository.SearchPageRenderSummariesAsync(query, context.ExecutionContext);
+                displayModel.Pages = await _contentRepository
+                    .WithExecutionContext(context.ExecutionContext)
+                    .Pages()
+                    .Search()
+                    .AsRenderSummaries(query)
+                    .ExecuteAsync();
 
                 result.Add(item, displayModel);
             }
