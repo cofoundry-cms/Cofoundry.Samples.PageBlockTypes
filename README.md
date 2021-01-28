@@ -13,13 +13,14 @@ If you have any requests for example block types, [let us know](https://github.c
 
 ####  Example Page Block Types:
 
+- **Carousel:** A multi-item carousel making use of `NestedDataModelCollection` to allow editing of a collection of slides.
 - **DirectoryList:** Lists pages in a specific directory. Demonstrates searching for pages using `IPageRepository` and using the `WebDirectoryAttribute` data model attribute.
 - **HorizontalLine:** A very simple block type that adds a variable width horizontal line (wrapped hr tag).
 - **PageList:** An orderable list of links to pages. Demonstrates querying for cached page routes using `IPageRepository`, the `PageCollectionAttribute` data model attribute and generating links to pages from page objects.
 - **PageSnippet:** Displays summary information about a page. Demonstrates the `PageAttribute` data model attribute, querying and manipulating block data and handling availability of linked entities (due to draft status).
 - **Quotation:** A quotation block that is output as blockquote with an optional cite tag.
+- **SocialProfiles:** An example of using `NestedDataModelMultiTypeCollection` to create a list of social media profile links by utilizing four different types of nested data models in one collection.
 - **TextList:** A list of text items that displays in an html unordered list, or optional in an ordered list.
-- **Carousel:** A multi-item carousel making use of `NestedDataModelCollection` to allow editing of a collection slides.
 
 
 
