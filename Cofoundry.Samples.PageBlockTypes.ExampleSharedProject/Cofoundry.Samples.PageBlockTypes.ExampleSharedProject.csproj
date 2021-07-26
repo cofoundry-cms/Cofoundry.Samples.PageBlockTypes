@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Cofoundry\PageBlockTypes\ContentSection\ContentSection.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Cofoundry\PageBlockTypes\ContentSection\ContentSection.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cofoundry.Web.Admin" Version="0.9.1" />
+  </ItemGroup>
+
+</Project>
