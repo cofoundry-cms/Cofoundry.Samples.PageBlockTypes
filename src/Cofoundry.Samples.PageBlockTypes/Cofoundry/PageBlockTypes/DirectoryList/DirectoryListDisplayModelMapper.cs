@@ -1,7 +1,4 @@
 ﻿using Cofoundry.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cofoundry.Samples.PageBlockTypes
@@ -16,9 +13,9 @@ namespace Cofoundry.Samples.PageBlockTypes
         {
             _contentRepository = contentRepository;
         }
-        
+
         public async Task MapAsync(
-            PageBlockTypeDisplayModelMapperContext<DirectoryListDataModel> context, 
+            PageBlockTypeDisplayModelMapperContext<DirectoryListDataModel> context,
             PageBlockTypeDisplayModelMapperResult<DirectoryListDataModel> result
             )
         {
@@ -34,7 +31,7 @@ namespace Cofoundry.Samples.PageBlockTypes
 
                 var displayModel = new DirectoryListDisplayModel();
                 displayModel.Pages = await _contentRepository
-                    .WithExecutionContext(context.ExecutionContext)
+                    .WithContext(context.ExecutionContext)
                     .Pages()
                     .Search()
                     .AsRenderSummaries(query)

@@ -1,7 +1,5 @@
 ﻿using Cofoundry.Core;
 using Cofoundry.Domain;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +17,7 @@ namespace Cofoundry.Samples.PageBlockTypes
         }
 
         public async Task MapAsync(
-            PageBlockTypeDisplayModelMapperContext<PageListDataModel> context, 
+            PageBlockTypeDisplayModelMapperContext<PageListDataModel> context,
             PageBlockTypeDisplayModelMapperResult<PageListDataModel> result
             )
         {
@@ -28,7 +26,7 @@ namespace Cofoundry.Samples.PageBlockTypes
             // Page routes are cached and so are the quickest way to get simple page information.
             // If we needed more data we could use a different but slower query to get it.
             var allPageRoutes = await _contentRepository
-                .WithExecutionContext(context.ExecutionContext)
+                .WithContext(context.ExecutionContext)
                 .Pages()
                 .GetByIdRange(allPageIds)
                 .AsRoutes()

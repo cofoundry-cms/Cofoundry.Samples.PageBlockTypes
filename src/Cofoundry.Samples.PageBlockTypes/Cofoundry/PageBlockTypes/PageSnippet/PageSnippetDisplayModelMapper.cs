@@ -3,7 +3,6 @@ using Cofoundry.Core.Web;
 using Cofoundry.Domain;
 using Cofoundry.Web;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,7 +35,7 @@ namespace Cofoundry.Samples.PageBlockTypes
             // should also be able to see connected entities in draft status.
             var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, context.PublishStatusQuery);
             var allPages = await _contentRepository
-                .WithExecutionContext(context.ExecutionContext)
+                .WithContext(context.ExecutionContext)
                 .Pages()
                 .GetByIdRange(allPageIds)
                 .AsRenderDetails()

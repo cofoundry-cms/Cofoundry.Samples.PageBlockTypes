@@ -1,6 +1,5 @@
 ﻿using Cofoundry.Core;
 using Cofoundry.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +32,7 @@ namespace Cofoundry.Samples.PageBlockTypes
 
             // Load image data
             var allImages = await _contentRepository
-                .WithExecutionContext(context.ExecutionContext)
+                .WithContext(context.ExecutionContext)
                 .ImageAssets()
                 .GetByIdRange(allImageAssetIds)
                 .AsRenderDetails()

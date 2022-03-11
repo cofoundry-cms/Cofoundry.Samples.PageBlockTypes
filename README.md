@@ -2,14 +2,12 @@
 
 A bare website showing various examples of how to implement page block types.
 
-If you have any requests for example block types, [let us know](https://github.com/cofoundry-cms/cofoundry/wiki/Feedback-&-Community).
-
 #### To get started:
 
-1. Create a database named 'Cofoundry.Samples.PageBlockTypes' and check the Cofoundry connection string in the config file is correct for you sql server instance
+1. Create a database named 'Cofoundry.Samples.PageBlockTypes' and check the Cofoundry connection string in the config file is correct for your SQL Server instance
 2. Run the website and navigate to *"/admin"*, which will display the setup screen
 3. Enter an application name and setup your user account. Submit the form to complete the site setup. 
-4. Log in and add a page with the *General* template, click on save and edit to go to the visual editor and play around with the page block types.
+4. Sign in and add a page with the *General* template, click on save and edit to go to the visual editor and play around with the page block types.
 
 ####  Example Page Block Types:
 
@@ -25,7 +23,7 @@ If you have any requests for example block types, [let us know](https://github.c
 
 ## ExampleSharedProject
 
-The solution also contains a project that demonstrates how to organise page blocks into a shared project. If you're implementing your own shared project for block types, there are some rules you need to follow:
+The solution also contains a project that demonstrates how to organize page blocks into a shared project. If you're implementing your own shared project for block types, there are some rules you need to follow:
 
 - Ensure your project is named in a way it can be picked up by DI: check the relevant section of the [dependency injection docs](https://www.cofoundry.org/docs/framework/dependency-injection#registering-dependencies-in-other-assemblies) for more information.
 - Ensure any view files are marked as embedded resources. This can be done either through the Visual Studio UI, or by adding a generic rule to your `.csproj` file:
