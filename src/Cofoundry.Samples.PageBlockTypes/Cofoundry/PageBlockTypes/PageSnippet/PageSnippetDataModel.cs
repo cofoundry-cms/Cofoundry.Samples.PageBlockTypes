@@ -1,15 +1,10 @@
-﻿using Cofoundry.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cofoundry.Samples.PageBlockTypes
+namespace Cofoundry.Samples.PageBlockTypes;
+
+public class PageSnippetDataModel : IPageBlockTypeDataModel
 {
-    public class PageSnippetDataModel : IPageBlockTypeDataModel
-    {
-        [Display(Name = "Page", Description = "The page to display a summary snippet for.")]
-        [Page]
-        public int PageId { get; set; }
-    }
+    [Display(Name = "Page", Description = "The page to display a summary snippet for.")]
+    [Page]
+    public int PageId { get; set; }
 }

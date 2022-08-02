@@ -1,32 +1,26 @@
-﻿using Cofoundry.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cofoundry.Samples.PageBlockTypes
+namespace Cofoundry.Samples.PageBlockTypes;
+
+[Display(Name = "Twitter")]
+public class TwitterProfileDataModel : INestedDataModel, ISocialProfileDataModel
 {
-    [Display(Name = "Twitter")]
-    public class TwitterProfileDataModel : INestedDataModel, ISocialProfileDataModel
+    [PreviewTitle]
+    [Required]
+    public string TwitterHandle { get; set; }
+
+    public string GetDescription()
     {
-        [PreviewTitle]
-        [Required]
-        public string TwitterHandle { get; set; }
+        return "Twitter";
+    }
 
-        public string GetDescription()
+    public string GetUrl()
+    {
+        if (string.IsNullOrWhiteSpace(TwitterHandle))
         {
-            return "Twitter";
+            return null;
         }
 
-        public string GetUrl()
-        {
-            if (string.IsNullOrWhiteSpace(TwitterHandle))
-            {
-                return null;
-            }
-
-            return "https://twitter.com/" + TwitterHandle;
-        }
+        return "https://twitter.com/" + TwitterHandle;
     }
 }

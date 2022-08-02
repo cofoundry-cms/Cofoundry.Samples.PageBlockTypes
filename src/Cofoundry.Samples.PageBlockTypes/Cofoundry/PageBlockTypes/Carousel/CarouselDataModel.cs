@@ -1,17 +1,10 @@
-﻿using Cofoundry.Core;
-using Cofoundry.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Cofoundry.Samples.PageBlockTypes
+namespace Cofoundry.Samples.PageBlockTypes;
+
+public class CarouselDataModel : IPageBlockTypeDataModel
 {
-    public class CarouselDataModel : IPageBlockTypeDataModel
-    {
-        [Required]
-        [NestedDataModelCollection(IsOrderable = true, MinItems = 2, MaxItems = 6)]
-        public ICollection<CarouselSlideDataModel> Slides { get; set; }
-    }
+    [Required]
+    [NestedDataModelCollection(IsOrderable = true, MinItems = 2, MaxItems = 6)]
+    public ICollection<CarouselSlideDataModel> Slides { get; set; }
 }
