@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -7,14 +7,14 @@ public class TwitterProfileDataModel : INestedDataModel, ISocialProfileDataModel
 {
     [PreviewTitle]
     [Required]
-    public string TwitterHandle { get; set; }
+    public string TwitterHandle { get; set; } = string.Empty;
 
     public string GetDescription()
     {
         return "Twitter";
     }
 
-    public string GetUrl()
+    public string? GetUrl()
     {
         if (string.IsNullOrWhiteSpace(TwitterHandle))
         {

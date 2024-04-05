@@ -1,10 +1,10 @@
-﻿namespace Cofoundry.Samples.PageBlockTypes;
+namespace Cofoundry.Samples.PageBlockTypes;
 
 public class CarouselSlideDisplayModel
 {
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
-    public string Text { get; set; }
+    public required string Text { get; set; }
 
-    public ImageAssetRenderDetails Image { get; set; }
+    public required ImageAssetRenderDetails Image { get; set; }
 }

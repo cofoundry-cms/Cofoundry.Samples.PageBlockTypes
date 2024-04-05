@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Web;
 
@@ -9,17 +9,17 @@ public class QuotationDataModel : IPageBlockTypeDataModel
 {
     [Display(Name = "Title (optional)")]
     [StringLength(128)]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [Required]
     [Display(Name = "Quotation text")]
-    public string Quotation { get; set; }
+    public string Quotation { get; set; } = string.Empty;
 
     [Display(Name = "Citation text (optional)")]
     [StringLength(128)]
-    public string CitationText { get; set; }
+    public string? CitationText { get; set; }
 
     [Display(Name = "Citation url")]
     [StringLength(256)]
-    public string CitationUrl { get; set; }
+    public string? CitationUrl { get; set; }
 }

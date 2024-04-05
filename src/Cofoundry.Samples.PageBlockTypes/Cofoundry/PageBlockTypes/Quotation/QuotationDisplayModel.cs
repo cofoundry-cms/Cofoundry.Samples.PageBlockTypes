@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Html;
 
 namespace Cofoundry.Web;
 
 public class QuotationDisplayModel : IPageBlockTypeDisplayModel
 {
-    public string Title { get; set; }
-    public IHtmlContent Quotation { get; set; }
-    public string CitationText { get; set; }
-    public string CitationUrl { get; set; }
+    public required string? Title { get; set; }
+    public required IHtmlContent Quotation { get; set; }
+    public required string? CitationText { get; set; }
+    public required string? CitationUrl { get; set; }
 }

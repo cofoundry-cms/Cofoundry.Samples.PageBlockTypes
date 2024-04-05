@@ -1,5 +1,5 @@
-﻿using Cofoundry.Domain;
 using System.ComponentModel.DataAnnotations;
+using Cofoundry.Domain;
 
 namespace Cofoundry.Samples.PageBlockTypes.ExampleSharedProject;
 
@@ -10,8 +10,8 @@ namespace Cofoundry.Samples.PageBlockTypes.ExampleSharedProject;
 public class ContentSectionDataModel : IPageBlockTypeDataModel, IPageBlockTypeDisplayModel
 {
     [Display(Description = "Optional title to display at the top of the section")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [Required]
-    public string Text { get; set; }
+    public string Text { get; set; } = string.Empty;
 }

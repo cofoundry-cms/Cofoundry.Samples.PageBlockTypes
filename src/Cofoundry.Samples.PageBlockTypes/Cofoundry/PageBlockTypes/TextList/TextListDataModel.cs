@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Web;
 
@@ -8,11 +8,10 @@ namespace Cofoundry.Web;
 public class TextListDataModel : IPageBlockTypeDataModel
 {
     [Display(Name = "Title")]
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     [Required, Display(Name = "Text list")]
-    //[Searchable]
-    public string TextList { get; set; }
+    public string TextList { get; set; } = string.Empty;
 
     [Display(Name = "Numbered?")]
     public bool IsNumbered { get; set; }

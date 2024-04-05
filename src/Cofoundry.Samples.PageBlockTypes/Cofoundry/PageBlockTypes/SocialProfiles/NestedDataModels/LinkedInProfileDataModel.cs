@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -8,14 +8,14 @@ public class LinkedInProfileDataModel : INestedDataModel, ISocialProfileDataMode
     [Display(Name = "Profile Id")]
     [PreviewTitle]
     [Required]
-    public string ProfileId { get; set; }
+    public string ProfileId { get; set; } = string.Empty;
 
     public string GetDescription()
     {
         return "LinkedIn";
     }
 
-    public string GetUrl()
+    public string? GetUrl()
     {
         if (string.IsNullOrWhiteSpace(ProfileId))
         {

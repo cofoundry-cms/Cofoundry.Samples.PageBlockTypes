@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -6,19 +6,19 @@ namespace Cofoundry.Samples.PageBlockTypes;
 public class BlogLinkDataModel : INestedDataModel, ISocialProfileDataModel
 {
     [Required]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [PreviewTitle]
     [Url]
     [Required]
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     public string GetDescription()
     {
         return Description;
     }
 
-    public string GetUrl()
+    public string? GetUrl()
     {
         return Url;
     }

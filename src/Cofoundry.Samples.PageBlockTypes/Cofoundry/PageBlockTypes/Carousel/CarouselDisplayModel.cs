@@ -1,6 +1,6 @@
-﻿namespace Cofoundry.Samples.PageBlockTypes;
+namespace Cofoundry.Samples.PageBlockTypes;
 
 public class CarouselDisplayModel : IPageBlockTypeDisplayModel
 {
-    public ICollection<CarouselSlideDisplayModel> Slides { get; set; }
+    public IReadOnlyCollection<CarouselSlideDisplayModel> Slides { get; set; } = Array.Empty<CarouselSlideDisplayModel>();
 }

@@ -1,4 +1,4 @@
-﻿using Cofoundry.Core;
+using Cofoundry.Core;
 using Microsoft.AspNetCore.Html;
 
 namespace Cofoundry.Web;
@@ -12,11 +12,13 @@ public class QuotationDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Quot
     {
         foreach (var item in context.Items)
         {
-            var displayModel = new QuotationDisplayModel();
-            displayModel.CitationText = item.DataModel.CitationText;
-            displayModel.CitationUrl = item.DataModel.CitationUrl;
-            displayModel.Quotation = new HtmlString(HtmlFormatter.ConvertLineBreaksToBrTags(item.DataModel.CitationText));
-            displayModel.Title = item.DataModel.Title;
+            var displayModel = new QuotationDisplayModel
+            {
+                CitationText = item.DataModel.CitationText,
+                CitationUrl = item.DataModel.CitationUrl,
+                Quotation = new HtmlString(HtmlFormatter.ConvertLineBreaksToBrTags(item.DataModel.CitationText)),
+                Title = item.DataModel.Title
+            };
 
             result.Add(item, displayModel);
         }

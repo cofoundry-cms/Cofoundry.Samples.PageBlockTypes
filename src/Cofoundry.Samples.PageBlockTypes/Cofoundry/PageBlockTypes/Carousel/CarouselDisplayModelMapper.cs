@@ -1,4 +1,4 @@
-﻿using Cofoundry.Core;
+using Cofoundry.Core;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -37,19 +37,35 @@ public class CarouselDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Carou
         // Map display model
         foreach (var items in context.Items)
         {
-            var output = new CarouselDisplayModel();
-
-            output.Slides = EnumerableHelper
+            var slides = EnumerableHelper
                 .Enumerate(items.DataModel.Slides)
-                .Select(m => new CarouselSlideDisplayModel()
-                {
-                    Image = allImages.GetOrDefault(m.ImageId),
-                    Text = m.Text,
-                    Title = m.Title
-                })
-                .ToList();
+                .Select(m => MapSlide(m, allImages))
+                .WhereNotNull()
+                .ToArray();
+
+            var output = new CarouselDisplayModel
+            {
+                Slides = slides
+            };
 
             result.Add(items, output);
         }
+    }
+
+    private static CarouselSlideDisplayModel? MapSlide(CarouselSlideDataModel dataModel, IReadOnlyDictionary<int, ImageAssetRenderDetails> allImages)
+    {
+        var image = allImages.GetValueOrDefault(dataModel.ImageId);
+
+        if (image == null)
+        {
+            return null;
+        }
+
+        return new CarouselSlideDisplayModel()
+        {
+            Image = image,
+            Text = dataModel.Text,
+            Title = dataModel.Title
+        };
     }
 }

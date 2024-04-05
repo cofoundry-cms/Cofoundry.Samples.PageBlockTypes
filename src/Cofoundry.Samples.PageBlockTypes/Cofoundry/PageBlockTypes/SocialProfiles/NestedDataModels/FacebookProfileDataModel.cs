@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -8,14 +8,14 @@ public class FacebookProfileDataModel : INestedDataModel, ISocialProfileDataMode
     [Display(Name = "Facebook Id")]
     [PreviewTitle]
     [Required]
-    public string FacebookId { get; set; }
+    public string FacebookId { get; set; } = string.Empty;
 
     public string GetDescription()
     {
         return "Facebook";
     }
 
-    public string GetUrl()
+    public string? GetUrl()
     {
         if (string.IsNullOrWhiteSpace(FacebookId))
         {

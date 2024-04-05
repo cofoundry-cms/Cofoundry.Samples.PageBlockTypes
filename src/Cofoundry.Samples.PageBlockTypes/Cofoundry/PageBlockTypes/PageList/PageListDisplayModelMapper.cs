@@ -1,4 +1,4 @@
-﻿using Cofoundry.Core;
+using Cofoundry.Core;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -31,16 +31,18 @@ public class PageListDisplayModelMapper : IPageBlockTypeDisplayModelMapper<PageL
 
         foreach (var item in context.Items)
         {
-            var displayModel = new PageListDisplayModel();
-
             // Here will get the relevant pages and order them correctly. 
             // Additionally if we are viewing the published version of the page
             // then we make sure we only show published pages in the list.
-
-            displayModel.Pages = allPageRoutes
+            var pages = allPageRoutes
                 .FilterAndOrderByKeys(item.DataModel.PageIds)
                 .Where(p => context.PublishStatusQuery != PublishStatusQuery.Published || p.IsPublished())
-                .ToList();
+                .ToArray();
+
+            var displayModel = new PageListDisplayModel()
+            {
+                Pages = pages
+            };
 
             result.Add(item, displayModel);
         }

@@ -1,4 +1,4 @@
-﻿using Cofoundry.Core;
+using Cofoundry.Core;
 using Cofoundry.Core.Web;
 
 namespace Cofoundry.Samples.PageBlockTypes;
@@ -28,7 +28,6 @@ public class PageSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Pa
         // a specific version. We pass through the PublishStatusQuery to ensure this is 
         // respected when querying related data i.e. if we're viewing a draft version then we
         // should also be able to see connected entities in draft status.
-        var pagesQuery = new GetPageRenderDetailsByIdRangeQuery(allPageIds, context.PublishStatusQuery);
         var allPages = await _contentRepository
             .WithContext(context.ExecutionContext)
             .Pages()
@@ -38,9 +37,10 @@ public class PageSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Pa
 
         foreach (var item in context.Items)
         {
-            var displayModel = new PageSnippetDisplayModel();
-
-            displayModel.Page = allPages.GetOrDefault(item.DataModel.PageId);
+            var displayModel = new PageSnippetDisplayModel
+            {
+                Page = allPages.GetValueOrDefault(item.DataModel.PageId)
+            };
 
             // We have to code defensively here and bear in mind that the related
             // entities may be in draft status and may not be available when viewing
@@ -54,7 +54,7 @@ public class PageSnippetDisplayModelMapper : IPageBlockTypeDisplayModelMapper<Pa
                     .Regions
                     .SelectMany(s => s.Blocks)
                     .Select(m => m.DisplayModel as RawHtmlDisplayModel)
-                    .Where(m => m != null)
+                    .WhereNotNull()
                     .Select(m => _htmlSanitizer.StripHtml(m.RawHtml));
 
                 // This is just an example of working with the data, in reality this

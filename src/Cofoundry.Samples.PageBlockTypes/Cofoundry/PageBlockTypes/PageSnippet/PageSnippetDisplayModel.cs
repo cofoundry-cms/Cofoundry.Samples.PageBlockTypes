@@ -1,8 +1,8 @@
-﻿namespace Cofoundry.Samples.PageBlockTypes;
+namespace Cofoundry.Samples.PageBlockTypes;
 
 public class PageSnippetDisplayModel : IPageBlockTypeDisplayModel
 {
-    public PageRenderDetails Page { get; set; }
+    public PageRenderDetails? Page { get; set; }
 
-    public string Snippet { get; set; }
+    public string Snippet { get; set; } = string.Empty;
 }

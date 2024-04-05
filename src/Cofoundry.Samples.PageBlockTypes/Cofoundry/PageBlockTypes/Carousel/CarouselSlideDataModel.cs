@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cofoundry.Samples.PageBlockTypes;
 
@@ -14,10 +14,10 @@ public class CarouselSlideDataModel : INestedDataModel
     [Required]
     [Display(Description = "Title to display in the slide.")]
     [MaxLength(100)]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
     [Display(Description = "Formatted text to display in the slide.")]
     [Required]
     [Html(HtmlToolbarPreset.BasicFormatting)]
-    public string Text { get; set; }
+    public string Text { get; set; } = string.Empty;
 }

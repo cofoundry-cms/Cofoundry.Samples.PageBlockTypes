@@ -1,7 +1,7 @@
 ﻿@model SocialProfilesDataModel
 @inject ICofoundryBlockTypeHelper<SocialProfilesDataModel> Cofoundry
 @{
-    Cofoundry.BlockType.UseDescription("A list of social meia profile links.");
+    Cofoundry.BlockType.UseDescription("A list of social media profile links.");
 }
 
 <div>
@@ -12,7 +12,11 @@
             .Select(m => m.Model)
             .Cast<ISocialProfileDataModel>())
         {
-            <li><a href="@socialProfile.GetUrl()">@socialProfile.GetDescription()</a></li>
+            var url = socialProfile.GetUrl();
+            if (!string.IsNullOrEmpty(url))
+            {
+                <li><a href="@socialProfile.GetUrl()">@socialProfile.GetDescription()</a></li>
+            }
         }
     </ul>
 
